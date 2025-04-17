@@ -795,21 +795,37 @@ acceptTosBtn.addEventListener('click', () => {
     }
 });
 
-// Initial page load handling
-window.addEventListener('load', () => {
-    // Hide all main content initially
-    loginScreen.style.display = 'none';
-    chatContainer.style.display = 'none';
-    
-    // Show loading screen for 1.5 seconds
+// Add loading screen functions
+function hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    loadingScreen.style.opacity = '0';
     setTimeout(() => {
         loadingScreen.style.display = 'none';
-        
-        // Check if user has agreed to TOS
+        // Show login or TOS based on agreement status
         if (localStorage.getItem(TOS_AGREED_KEY) === 'true') {
             loginScreen.style.display = 'flex';
         } else {
             tosOverlay.style.display = 'flex';
         }
-    }, 1500);
+    }, 500); // Match this with CSS transition duration
+}
+
+// Update the window load event handler
+window.addEventListener('load', () => {
+    // Hide all main content initially
+    loginScreen.style.display = 'none';
+    chatContainer.style.display = 'none';
+    tosOverlay.style.display = 'none';
+    
+    // Add connection status check
+    socket.on('connect', () => {
+        setTimeout(hideLoadingScreen, 1000);
+    });
+
+    socket.on('connect_error', () => {
+        const loadingText = document.querySelector('#loading-screen h2');
+        if (loadingText) {
+            loadingText.textContent = 'Connection error. Retrying...';
+        }
+    });
 });
