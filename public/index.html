@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader"></div>
+        <h2>Loading Pro Chat...</h2>
+    </div>
+
+    <!-- TOS and Privacy Policy -->
+    <div id="tos-overlay" class="tos-overlay">
+        <div class="tos-content">
+            <h2>Terms of Service & Privacy Policy</h2>
+            <div class="tos-scrollable">
+                <h3>Terms of Service</h3>
+                <p>Welcome to Pro Chat. By using our service, you agree to these terms:</p>
+                <ul>
+                    <li>You must be 13 years or older to use this service</li>
+                    <li>You agree to not post harmful, offensive, or illegal content</li>
+                    <li>You are responsible for all content you post</li>
+                    <li>We reserve the right to terminate accounts that violate these terms</li>
+                    <li>We may modify these terms at any time</li>
+                </ul>
+
+                <h3>Privacy Policy</h3>
+                <p>We care about your privacy. Here's how we handle your data:</p>
+                <ul>
+                    <li>We store your username and messages temporarily</li>
+                    <li>Messages are not permanently stored</li>
+                    <li>We don't collect personal information</li>
+                    <li>Your data is not shared with third parties</li>
+                    <li>Images you upload are stored temporarily</li>
+                </ul>
+            </div>
+            <div class="tos-actions">
+                <label>
+                    <input type="checkbox" id="tos-checkbox">
+                    I agree to the Terms of Service and Privacy Policy
+                </label>
+                <button id="accept-tos" class="primary-btn" disabled>Continue to Chat</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-screen" id="login-screen">
+        <div class="login-box">
+            <h2>Welcome to Pro Chat</h2>
+            <input type="text" id="username-input" placeholder="Enter your username" required>
+            <button id="join-btn" class="primary-btn">Join Chat</button>
+            
+            <div class="room-selection">
+                <h3>Available Rooms</h3>
+                <div id="rooms-list" class="rooms-list">
+                    <div class="room-item">
+                        <span>Main Room</span>
+                        <button class="join-room-btn" data-room="main">Join</button>
+                    </div>
+                </div>
+                <button id="show-create-room-btn" class="create-room-toggle">Create New Room</button>
+            </div>
+            
+            <div id="create-room-panel" class="create-room-panel" style="display: none;">
+                <h3>Create New Room</h3>
+                <input type="text" id="room-input" placeholder="Room name">
+                <div class="password-toggle-container">
+                    <label>
+                        <input type="checkbox" id="password-toggle"> Password protected
+                    </label>
+                </div>
+                <input type="password" id="room-password-input" placeholder="Room password" style="display: none;">
+                <div class="room-buttons">
+                    <button id="create-room-btn" class="primary-btn">Create Room</button>
+                    <button id="cancel-create-room-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="chat-container" id="chat-container" style="display: none;">
+        <div class="chat-header">
+            <div class="header-left">
+                <h2>Pro Chat</h2>
+                <span id="room-name-display" class="room-name">Main Room</span>
+            </div>
+            <div class="header-right">
+                <button id="toggle-users-btn" class="toggle-users-btn" title="Toggle Users List">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V18h14v-1.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05.02.01.03.03.04.04 1.14.83 1.93 1.94 1.93 3.41V18h6v-1.5c0-2.33-4.67-3.5-7-3.5z" fill="currentColor"/>
+                    </svg>
+                </button>
+                <button id="rules-toggle" class="rules-toggle" title="Chat Rules">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div id="rules-panel" class="rules-panel">
+            <div class="rules-content">
+                <h3>Chat Rules</h3>
+                <ul>
+                    <li>Be respectful to all users</li>
+                    <li>No inappropriate content</li>
+                    <li>Keep conversations friendly</li>
+                    <li>Don't spam messages</li>
+                    <li>Have fun!</li>
+                </ul>
+                <button id="close-rules" class="close-rules">Got it!</button>
+            </div>
+        </div>
+        
+        <div class="chat-layout">
+            <div class="chat-main">
+                <div class="messages" id="messages"></div>
+                <div class="input-area">
+                    <div id="image-preview-container" style="display: none;">
+                        <img id="image-preview" class="image-preview">
+                        <button id="cancel-upload-btn">✕</button>
+                    </div>
+                    <div class="message-input-container">
+                        <input type="text" id="message-input" placeholder="Type a message...">
+                        <button id="emoji-btn" class="emoji-btn" title="Insert Emoji">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" fill="currentColor"/>
+                            </svg>
+                        </button>
+                        <div id="emoji-picker" class="emoji-picker" style="display: none;"></div>
+                        <span id="cooldown-timer" class="cooldown-timer"></span>
+                    </div>
+                    <div class="upload-btn-wrapper">
+                        <button class="upload-btn" id="upload-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                            </svg>
+                        </button>
+                        <input type="file" id="file-input" accept="image/*">
+                    </div>
+                    <button id="send-btn">Send</button>
+                </div>
+            </div>
+            
+            <div class="users-sidebar" id="users-sidebar">
+                <div class="sidebar-header">
+                    <h3>Online Users</h3>
+                    <button class="close-sidebar" id="close-sidebar">✕</button>
+                </div>
+                <ul id="online-users-list" class="users-list"></ul>
+            </div>
+            
+            <div class="admin-panel" id="admin-panel" style="display: none;">
+                <div class="sidebar-header">
+                    <h3>Admin Panel</h3>
+                    <button class="close-sidebar" id="close-admin-panel">✕</button>
+                </div>
+                <div class="admin-content">
+                    <div class="admin-section">
+                        <h4>Reports</h4>
+                        <div id="reports-list" class="reports-list"></div>
+                    </div>
+                    <div class="admin-section">
+                        <h4>Users</h4>
+                        <div id="admin-users-list" class="admin-users-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="context-menu" class="context-menu">
+        <div class="context-menu-item edit-option">
+            <span>✎ Edit</span>
+        </div>
+        <div class="context-menu-item delete-option">
+            <span>🗑️ Delete</span>
+        </div>
+        <div class="context-menu-item report-option">
+            <span>⚠️ Report</span>
+        </div>
+    </div>
+
+    <div id="report-dialog" class="modal">
+        <div class="modal-content">
+            <h3>Report Message</h3>
+            <select id="report-reason">
+                <option value="">Select a reason...</option>
+                <option value="spam">Spam</option>
+                <option value="harassment">Harassment</option>
+                <option value="inappropriate">Inappropriate Content</option>
+                <option value="other">Other</option>
+            </select>
+            <textarea id="report-details" placeholder="Additional details (optional)"></textarea>
+            <div class="modal-buttons">
+                <button id="submit-report">Submit Report</button>
+                <button id="cancel-report">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+{
+  "reports": [
+    {
+      "id": "d1fdb8ce-5f0c-42cd-852e-c11f50606b97",
+      "messageId": "1",
+      "reportedUsername": "nobga",
+      "reporterUsername": "gayse32433",
+      "reason": "inappropriate",
+      "timestamp": "2025-04-17T16:30:16.511Z",
+      "status": "pending"
+    },
+    {
+      "id": "65e42057-d4de-43b2-bd4d-cc4306cd50b3",
+      "messageId": "4",
+      "reportedUsername": "gayse",
+      "reporterUsername": "nobga",
+      "reason": "inappropriate",
+      "timestamp": "2025-04-17T16:32:31.157Z",
+      "status": "pending"
+    }
+  ],
+  "users": {
+    "1b54048a-6504-4c70-9be1-5a8010296e40": {
+      "username": "pmosnigga",
+      "createdAt": "2025-04-17T16:17:53.919Z",
+      "isAdmin": false,
+      "banned": false
+    },
+    "07f3e2b6-6ec0-43b8-b873-b079915e3cb3": {
+      "username": "ds",
+      "createdAt": "2025-04-17T16:17:59.773Z",
+      "isAdmin": false,
+      "banned": false
+    },
+    "d28f41a3-ccca-439e-b259-8a6937e1dea4": {
+      "username": "a",
+      "createdAt": "2025-04-17T16:18:05.165Z",
+      "isAdmin": false,
+      "banned": false
+    },
+    "cc5458cf-de77-4fa3-b97b-91bd5515905b": {
+      "username": "x",
+      "createdAt": "2025-04-17T16:22:37.860Z",
+      "isAdmin": false,
+      "banned": false
+    },
+    "3eae703f-1284-4d32-9a9e-6bb745a9c8a5": {
+      "username": "dsqqs",
+      "createdAt": "2025-04-17T16:25:52.532Z",
+      "isAdmin": false,
+      "banned": false
+    },
+    "310f14a5-3ec6-4d1a-9245-fcf0b7bedffc": {
+      "username": "dd",
+      "createdAt": "2025-04-17T16:27:45.943Z",
+      "isAdmin": false,
+      "banned": false
+    },
+    "9794353e-f268-4b22-91f3-bde1e621cbf9": {
+      "username": "d",
+      "createdAt": "2025-04-17T16:28:15.338Z",
+      "isAdmin": false,
+      "banned": false
+    },
+    "a037c6e6-25b6-408a-92eb-f5eb266930c3": {
+      "username": "nobga",
+      "createdAt": "2025-04-17T16:29:50.439Z",
+      "isAdmin": false,
+      "banned": false
+    },
+    "35249a00-c55b-4504-919b-cca257896bb3": {
+      "username": "gayse32433",
+      "createdAt": "2025-04-17T16:30:02.775Z",
+      "isAdmin": false,
+      "banned": false
+    },
+    "97bf29be-8a37-4b23-ae85-55bf86e113f1": {
+      "username": "gayse",
+      "createdAt": "2025-04-17T16:31:31.254Z",
+      "isAdmin": false,
+      "banned": false
+    },
+    "c85bee6c-939b-478e-b3da-6eb4e536e6ba": {
+      "username": "dada",
+      "createdAt": "2025-04-17T16:40:57.953Z",
+      "isAdmin": false,
+      "banned": false
+    }
+  }
+}
