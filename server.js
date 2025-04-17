@@ -80,9 +80,16 @@ function isUserBanned(username) {
     return false;
 }
 
-// Configure multer for image uploads
+// Configure multer for image uploads with Render.com persistent storage
+const uploadDir = process.env.RENDER_ARTIFACTS_DIR || 'public/uploads/';
 const storage = multer.diskStorage({
-    destination: 'public/uploads/',
+    destination: (req, file, cb) => {
+        // Create directory if it doesn't exist
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+        }
+        cb(null, uploadDir);
+    },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
     }
@@ -106,10 +113,8 @@ app.use(cors());
 app.use(express.static('public'));
 app.use(express.json());
 
-// Create uploads directory if it doesn't exist
-if (!fs.existsSync('public/uploads')) {
-    fs.mkdirSync('public/uploads', { recursive: true });
-}
+// Serve uploaded files from the persistent storage
+app.use('/uploads', express.static(uploadDir));
 
 const users = new Map();
 const rooms = new Map(); // Store room information: { name, password, users }
@@ -430,7 +435,18 @@ io.on('connection', (socket) => {
     });
 });
 
+// Update port configuration to work with Render.com
 const PORT = process.env.PORT || 3000;
-http.listen(PORT, () => {
+http.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
+});
+
+// Add error handling for the server
+http.on('error', (error) => {
+    console.error('Server error:', error);
+});
+
+// Add error handling for socket.io
+io.on('error', (error) => {
+    console.error('Socket.io error:', error);
 });
